@@ -1,0 +1,19 @@
+Release Note
+We are excited to introduce a comprehensive Invoice Management feature that enhances the user experience by allowing users to review their invoices, request changes to line items, and request full refunds.
+
+Key Enhancements:
+User-friendly interface: Display a list of invoices and view detailed invoice information.
+Change requests: Select specific line items for changes and submit change requests, which the billing department can review and update.
+Full refunds: Request full refunds for incorrect charges.
+
+User Journey:
+Users log in and navigate to the invoice management section.
+They can review their invoices, select line items for changes, and request full refunds.
+The system fetches the relevant data from the database and displays it in the UI.
+
+Technical Details:
+Backend API Extensions: Support for fetching invoice data, processing change requests, and handling refund requests.
+Frontend Updates: UI components to display invoices, line item changes, and refund requests.
+Database Schema Modifications: Tables to store invoice data, change requests, and refund requests.
+
+This feature ensures seamless data management and retrieval, providing a streamlined and efficient way for users to manage their invoices and billing-related tasks.
