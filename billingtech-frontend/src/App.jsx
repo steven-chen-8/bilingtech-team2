@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import "./App.css" // Import the CSS file
 import InvoiceList from "./components/InvoiceList.jsx"
 import InvoiceDetails from "./components/InvoiceDetails.jsx"
 import ChangeRequestForm from "./components/ChangeRequestForm.jsx"
@@ -21,8 +22,8 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h1>Invoice Management</h1>
+    <div className="app-container">
+      <h1 className="app-title">Invoice Management</h1>
       <InvoiceList onSelectInvoice={setSelectedInvoiceId} />
       {selectedInvoiceId && <InvoiceDetails invoiceId={selectedInvoiceId} onRequestChange={handleRequestChange} onRequestRefund={handleRequestRefund} />}
       {showChangeRequestForm && <ChangeRequestForm lineItemId={selectedLineItemId} onClose={() => setShowChangeRequestForm(false)} />}

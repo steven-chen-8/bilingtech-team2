@@ -1,0 +1,50 @@
+.invoice-details-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.line-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.line-items-table th,
+.line-items-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.line-items-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.line-items-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.request-change-button,
+.request-refund-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.request-change-button:hover,
+.request-refund-button:hover {
+  background-color: #0056b3;
+}
+
+.request-refund-button {
+  margin-top: 15px;
+}

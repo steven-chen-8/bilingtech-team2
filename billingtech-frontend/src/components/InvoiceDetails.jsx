@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
+import "./InvoiceDetails.css" // Add a CSS file for styling
 
 const InvoiceDetails = ({ invoiceId, onRequestChange, onRequestRefund }) => {
   const [invoice, setInvoice] = useState(null)
@@ -19,7 +20,7 @@ const InvoiceDetails = ({ invoiceId, onRequestChange, onRequestRefund }) => {
   }
 
   return (
-    <div>
+    <div className="invoice-details-container">
       <h2>Invoice Details</h2>
       <p>
         <strong>Date:</strong> {invoice.invoice_date}
@@ -31,15 +32,31 @@ const InvoiceDetails = ({ invoiceId, onRequestChange, onRequestRefund }) => {
         <strong>Status:</strong> {invoice.status}
       </p>
       <h3>Line Items</h3>
-      <ul>
-        {invoice.line_items.map(item => (
-          <li key={item.line_item_id}>
-            {item.description} - ${item.total_price}
-            <button onClick={() => onRequestChange(item.line_item_id)}>Request Change</button>
-          </li>
-        ))}
-      </ul>
-      <button onClick={() => onRequestRefund(invoice.invoice_id)}>Request Refund</button>
+      <table className="line-items-table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Total Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {invoice.line_items.map(item => (
+            <tr key={item.line_item_id}>
+              <td>{item.description}</td>
+              <td>${item.total_price}</td>
+              <td>
+                <button className="request-change-button" onClick={() => onRequestChange(item.line_item_id)}>
+                  Request Change
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button className="request-refund-button" onClick={() => onRequestRefund(invoice.invoice_id)}>
+        Request Refund
+      </button>
     </div>
   )
 }
