@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react"
+import axios from "axios"
 
 const InvoiceList = ({ onSelectInvoice }) => {
   const [invoices, setInvoices] = useState([])
 
   useEffect(() => {
     // Fetch the list of invoices from the backend
-    fetch("/api/invoices")
-      .then(response => response.json())
-      .then(data => setInvoices(data))
+    axios
+      .get("http://localhost:5000/api/invoices")
+      .then(response => setInvoices(response.data))
       .catch(error => console.error("Error fetching invoices:", error))
   }, [])
 
@@ -16,8 +17,8 @@ const InvoiceList = ({ onSelectInvoice }) => {
       <h2>Invoices</h2>
       <ul>
         {invoices.map(invoice => (
-          <li key={invoice.id} onClick={() => onSelectInvoice(invoice.id)}>
-            {invoice.title} - {invoice.totalAmount}
+          <li key={invoice.invoice_id} onClick={() => onSelectInvoice(invoice.invoice_id)}>
+            {invoice.invoice_date} - ${invoice.total_amount} - {invoice.status}
           </li>
         ))}
       </ul>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import axios from "axios"
 
 const InvoiceDetails = ({ invoiceId, onRequestChange, onRequestRefund }) => {
   const [invoice, setInvoice] = useState(null)
@@ -6,9 +7,9 @@ const InvoiceDetails = ({ invoiceId, onRequestChange, onRequestRefund }) => {
   useEffect(() => {
     if (invoiceId) {
       // Fetch invoice details from the backend
-      fetch(`/api/invoices/${invoiceId}`)
-        .then(response => response.json())
-        .then(data => setInvoice(data))
+      axios
+        .get(`http://localhost:5000/api/invoices/${invoiceId}`)
+        .then(response => setInvoice(response.data))
         .catch(error => console.error("Error fetching invoice details:", error))
     }
   }, [invoiceId])
@@ -21,21 +22,24 @@ const InvoiceDetails = ({ invoiceId, onRequestChange, onRequestRefund }) => {
     <div>
       <h2>Invoice Details</h2>
       <p>
-        <strong>Title:</strong> {invoice.title}
+        <strong>Date:</strong> {invoice.invoice_date}
       </p>
       <p>
-        <strong>Total Amount:</strong> {invoice.totalAmount}
+        <strong>Total Amount:</strong> ${invoice.total_amount}
+      </p>
+      <p>
+        <strong>Status:</strong> {invoice.status}
       </p>
       <h3>Line Items</h3>
       <ul>
-        {invoice.lineItems.map(item => (
-          <li key={item.id}>
-            {item.description} - {item.amount}
-            <button onClick={() => onRequestChange(item.id)}>Request Change</button>
+        {invoice.line_items.map(item => (
+          <li key={item.line_item_id}>
+            {item.description} - ${item.total_price}
+            <button onClick={() => onRequestChange(item.line_item_id)}>Request Change</button>
           </li>
         ))}
       </ul>
-      <button onClick={() => onRequestRefund(invoice.id)}>Request Full Refund</button>
+      <button onClick={() => onRequestRefund(invoice.invoice_id)}>Request Refund</button>
     </div>
   )
 }

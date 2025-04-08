@@ -1,11 +1,13 @@
-const { Pool } = require("pg")
+const mysql = require("mysql2/promise")
 
-const pool = new Pool({
-  user: process.env.DB_USER || "postgres", // Replace with your PostgreSQL username
+const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
   database: process.env.DB_NAME || "invoice_management",
-  password: process.env.DB_PASSWORD || "", // Replace with your PostgreSQL password
-  port: process.env.DB_PORT || 5432
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 })
 
 module.exports = pool

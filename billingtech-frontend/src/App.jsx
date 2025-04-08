@@ -1,27 +1,32 @@
 import React, { useState } from "react"
-import InvoiceList from "./components/InvoiceList"
-import InvoiceDetails from "./components/InvoiceDetails"
+import InvoiceList from "./components/InvoiceList.jsx"
+import InvoiceDetails from "./components/InvoiceDetails.jsx"
+import ChangeRequestForm from "./components/ChangeRequestForm.jsx"
+import RefundRequestForm from "./components/RefundRequestForm.jsx"
 
 const App = () => {
   const [selectedInvoiceId, setSelectedInvoiceId] = useState(null)
+  const [showChangeRequestForm, setShowChangeRequestForm] = useState(false)
+  const [showRefundRequestForm, setShowRefundRequestForm] = useState(false)
+  const [selectedLineItemId, setSelectedLineItemId] = useState(null)
 
   const handleRequestChange = lineItemId => {
-    // Handle line item change request
-    console.log("Requesting change for line item:", lineItemId)
-    // Call backend API to submit change request
+    setSelectedLineItemId(lineItemId)
+    setShowChangeRequestForm(true)
   }
 
   const handleRequestRefund = invoiceId => {
-    // Handle refund request
-    console.log("Requesting refund for invoice:", invoiceId)
-    // Call backend API to submit refund request
+    setSelectedInvoiceId(invoiceId)
+    setShowRefundRequestForm(true)
   }
 
   return (
     <div>
       <h1>Invoice Management</h1>
       <InvoiceList onSelectInvoice={setSelectedInvoiceId} />
-      <InvoiceDetails invoiceId={selectedInvoiceId} onRequestChange={handleRequestChange} onRequestRefund={handleRequestRefund} />
+      {selectedInvoiceId && <InvoiceDetails invoiceId={selectedInvoiceId} onRequestChange={handleRequestChange} onRequestRefund={handleRequestRefund} />}
+      {showChangeRequestForm && <ChangeRequestForm lineItemId={selectedLineItemId} onClose={() => setShowChangeRequestForm(false)} />}
+      {showRefundRequestForm && <RefundRequestForm invoiceId={selectedInvoiceId} onClose={() => setShowRefundRequestForm(false)} />}
     </div>
   )
 }
